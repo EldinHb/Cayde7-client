@@ -1,0 +1,17 @@
+:root {
+	--main-bg-color: #12171c;
+	--primary-color: #b78c25;
+	--primary-color-rgb: 183, 140, 37;
+	--normal-text-color: white;
+	
+	color-scheme: dark;
+}
+
+[data-theme="light-theme"] {
+	--main-bg-color: #e9e9e9;
+	--primary-color: #b78c25;
+	--primary-color-rgb: 183, 140, 37;
+	--normal-text-color: #12171c;
+
+	color-scheme: light;
+}
