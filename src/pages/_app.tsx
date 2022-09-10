@@ -1,3 +1,4 @@
+import { Header } from 'components/menu/header'
 import type { AppProps } from 'next/app'
 import { useEffect } from 'react'
 import '../styles/colors.css'
@@ -10,7 +11,10 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [])
 
   return (
-    <Component {...pageProps} />
+    <>
+      <Header />
+      <Component {...pageProps} />
+    </>
   )
 }
 

@@ -1,16 +1,17 @@
 :root {
 	--main-bg-color: #12171c;
-	--primary-color: #b78c25;
-	--primary-color-rgb: 183, 140, 37;
+	--main-contrast: #1c242b;
+	--primary-light-color: #ed39fa;
+	--primary-color: #ab3db3;
+	--primary-color-rgb: 171, 61, 179;
 	--normal-text-color: white;
 	
 	color-scheme: dark;
 }
 
 [data-theme="light-theme"] {
-	--main-bg-color: #e9e9e9;
-	--primary-color: #b78c25;
-	--primary-color-rgb: 183, 140, 37;
+	--main-bg-color: white;
+	--main-contrast: #e9e9e9;
 	--normal-text-color: #12171c;
 
 	color-scheme: light;

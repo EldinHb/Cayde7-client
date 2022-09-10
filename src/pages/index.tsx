@@ -1,3 +1,4 @@
+import { Button } from 'components/buttons/button';
 import type { NextPage } from 'next';
 import Link from 'next/link';
 
@@ -18,6 +19,7 @@ const Home: NextPage = () => {
       <button onClick={switchTheme}>
         switch theme
       </button>
+      <Button>hello</Button>
     </div>
   )
 }

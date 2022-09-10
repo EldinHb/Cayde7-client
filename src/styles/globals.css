@@ -15,6 +15,7 @@ a {
 * {
   box-sizing: border-box;
   color: var(--normal-text-color);
+  transition: all 100ms;
 }
 
 @media (prefers-color-scheme: dark) {

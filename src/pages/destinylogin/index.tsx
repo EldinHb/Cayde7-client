@@ -1,4 +1,3 @@
-import { error } from "console";
 import { GetServerSideProps } from "next";
 
 type Props = {
@@ -76,7 +75,7 @@ const getCredentials = () => {
 	const apiKey = process.env['DESTINY_API_KEY'];
 
 	if (!clientId || !clientSecret || !apiKey) {
-		throw error(500, 'env is not filled with destiny credentials...');
+		throw Error('env is not filled with destiny credentials...');
 	}
 
 	return {
