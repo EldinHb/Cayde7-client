@@ -17,8 +17,8 @@ export const Page = (props: Props) => {
 
 const StyledPage = styled.main(() => {
 	return {
-		padding: '20px 30px',
-		backgroundColor: 'red',
-		flex: '1'
+		padding: '80px 30px 20px 30px',
+		minHeight: 'calc(100vh - 60px)',
+		display: 'flex'
 	}
 })

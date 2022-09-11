@@ -1,3 +1,4 @@
+import styled from "@emotion/styled";
 import { GetServerSideProps } from "next";
 
 type Props = {
@@ -7,14 +8,34 @@ type Props = {
 
 const DestinyLogin = (props: Props) => {
 	return (
-		<div>
-			Destiny login
-			{
-				props.errorMessage
-			}
-		</div>
+		<Container>
+			<LoginText>
+				{
+					props.error ?
+						'Login unsuccessfull. Error: ' + props.errorMessage :
+						'Login successfull!'
+				}
+			</LoginText>
+		</Container>
 	);
-}
+};
+
+const LoginText = styled.span(() => {
+	return {
+		fontSize: '1.875rem',
+		fontWeight: 'bold'
+	}
+})
+
+const Container = styled.div(() => {
+	return {
+		display: 'flex',
+		flexDirection: 'column',
+		flex: 1,
+		alignItems: 'center',
+		justifyContent: 'center'
+	}
+});
 
 type Query = {
 	code: string;

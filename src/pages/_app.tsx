@@ -2,39 +2,38 @@ import { Global, useTheme } from '@emotion/react'
 import styled from '@emotion/styled'
 import { Footer } from 'components/menu/footer'
 import { Header } from 'components/menu/header'
+import { Page } from 'components/page/page'
 import type { AppProps } from 'next/app'
 import { EmotionProvider } from 'styles/emotion'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <EmotionProvider>
-      <GlobalStyles />
-      <PageContainer>
-        <Container>
-          <Header />
-          <Component {...pageProps} />
-        </Container>
-        <Footer />
-      </PageContainer>
-    </EmotionProvider>
+    <>
+      <EmotionProvider>
+        <GlobalStyles />
+        <PageContainer>
+          <Container>
+            <Header />
+            <Page>
+              <Component {...pageProps} />
+            </Page>
+          </Container>
+          <Footer />
+        </PageContainer>
+      </EmotionProvider>
+    </>
   )
 };
 
 const PageContainer = styled.div(() => {
   return {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
     minHeight: '100%'
   }
 })
 
 const Container = styled.div(() => {
   return {
-    height: '100%',
-    flex: '1',
-    display: 'flex',
-    flexDirection: 'column'
+    minHeight: '100vh',
   }
 })
 
@@ -56,7 +55,6 @@ const GlobalStyles = () => {
         },
         '#__next': {
           height: '100%',
-          minHeight: '100%'
         },
         '*': {
           transition: 'all 100ms',

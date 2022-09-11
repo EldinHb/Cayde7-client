@@ -23,9 +23,11 @@ const Styledfooter = styled.footer(props => {
 	return {
 		backgroundColor: colorScheme === 'dark' ? colors.darkBlueContrast : colors.lightGray,
 		display: 'flex',
-		padding: '20px 30px',
+		padding: '0 30px',
+		height: '60px',
 		justifyContent: 'space-between',
 		width: '100%',
+		alignItems: 'center'
 	}
 });
 

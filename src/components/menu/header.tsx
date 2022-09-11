@@ -2,6 +2,7 @@ import { useTheme } from '@emotion/react';
 import styled from '@emotion/styled';
 import { IconMoonStars, IconSunHigh } from '@tabler/icons';
 import { SubtleButton } from 'components/buttons/subtleButton';
+import Link from 'next/link';
 
 type Props = {
 	title?: string;
@@ -13,7 +14,9 @@ export const Header = (props: Props) => {
 	return (
 		<StyledHeader>
 			<Title>
-				Cayde-7
+				<Link href={'/'}>
+					Cayde-7
+				</Link>
 			</Title>
 			<SubtleButton onClick={toggleColorScheme}>
 				{
@@ -32,9 +35,11 @@ const StyledHeader = styled.nav(props => {
 	return {
 		backgroundColor: colorScheme === 'dark' ? colors.darkBlue : 'white',
 		display: 'flex',
-		padding: '20px 30px',
+		padding: '0 30px',
+		height: '60px',
 		justifyContent: 'space-between',
-		position: 'sticky',
+		alignItems: 'center',
+		position: 'fixed',
 		width: '100%',
 		borderBottom: '1px solid ' + (colorScheme === 'dark' ? colors.darkBlueContrast : colors.lightGray)
 	}
@@ -44,6 +49,7 @@ const Title = styled.div(({ theme: { colors } }) => {
 	return {
 		fontSize: '1.2rem',
 		fontWeight: 'bold',
-		color: colors.primary
+		color: colors.primary,
+		cursor: 'pointer'
 	}
 })
