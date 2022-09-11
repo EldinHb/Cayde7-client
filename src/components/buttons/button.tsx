@@ -1,30 +1,52 @@
-import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode, useMemo } from "react";
-import { css } from "utils/css";
-import styles from './button.module.css';
+import styled from "@emotion/styled";
+import { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from "react";
+import { hexToRgb } from "styles/colors";
 
 export type ButtonProps = {
 	htmlProps?: DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>;
 	children?: ReactNode;
-	color?: 'primary' | 'secondary';
+	color?: string;
+	onClick?: () => void;
+	className?: string;
 };
 
 export const Button = (props: ButtonProps) => {
-	const colorPalette = useMemo(() => {
-		return styles['button-' + (props.color ? props.color : 'primary')];
-	}, [props.color]);
-
-	const classNames = useMemo(() => {
-		return css(styles['button-root'], colorPalette, props.htmlProps?.className);
-	}, [colorPalette, props.htmlProps]);
-
 	return (
-		<button
+		<StyledButton
 			{...props.htmlProps}
-			className={classNames}
+			onClick={props.onClick}
+			color={props.color}
+			className={props.className}
 		>
 			{
 				props.children
 			}
-		</button>
-	)
+		</StyledButton>
+	);
 }
+
+type StyledButtonProps = {
+	color?: string;
+}
+
+const StyledButton = styled.button<StyledButtonProps>(props => {
+	const { theme, color } = props;
+	const { colors } = theme;
+
+	const rgbPrimary = hexToRgb(colors.primaryDark);
+	const rgbaPrimary = `rgb(${rgbPrimary.r}, ${rgbPrimary.g}, ${rgbPrimary.b}, .6)`;
+
+	return {
+		padding: '7px',
+		borderRadius: '5px',
+		border: '1px solid ' + colors.primary,
+		cursor: 'pointer',
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: color || rgbaPrimary,
+		':active': {
+			opacity: '.7'
+		}
+	}
+})
