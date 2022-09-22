@@ -1,5 +1,10 @@
 import styled from "@emotion/styled";
-import { GetServerSideProps } from "next";
+import axios, { AxiosError } from "axios";
+import { Agent } from "https";
+import { GetServerSideProps, GetServerSidePropsContext, PreviewData } from "next";
+import Link from "next/link";
+import { ParsedUrlQuery } from "querystring";
+import { Env } from "utils/env";
 
 type Props = {
 	error: boolean;
@@ -9,21 +14,31 @@ type Props = {
 const DestinyLogin = (props: Props) => {
 	return (
 		<Container>
-			<LoginText>
-				{
-					props.error ?
-						'Login unsuccessfull. Error: ' + props.errorMessage :
-						'Login successfull!'
-				}
-			</LoginText>
+			{
+				props.error ?
+					<>
+						<LoginText>
+							Login unsuccessfull. Error: {props.errorMessage}
+						</LoginText>
+					</> :
+					<>
+						<LoginText>
+							Login successfull!
+						</LoginText>
+						<div>
+							You can now use the commands that need authentication. <Link href={'/'}>Click here</Link> to see a list of commands.
+						</div>
+					</>
+			}
 		</Container>
 	);
 };
 
-const LoginText = styled.span(() => {
+const LoginText = styled.span(({ theme: { colors } }) => {
 	return {
 		fontSize: '1.875rem',
-		fontWeight: 'bold'
+		fontWeight: 'bold',
+		color: colors.primary
 	}
 })
 
@@ -83,11 +98,45 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
 		}
 	}
 
+	const loginData = await result.json();
+
+	try {
+		await axios(Env.ApiUrl + '/api/login', {
+			data: JSON.stringify({
+				userId: query.state,
+				membershipId: loginData.membership_id,
+				refreshToken: loginData.refresh_token,
+				accessToken: loginData.access_token,
+				refreshExpiresIn: loginData.refresh_expires_in,
+				tokenExpiresIn: loginData.expires_in
+			}),
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			httpsAgent: new Agent({
+				rejectUnauthorized: false
+			})
+		});
+	} catch (err) {
+		const axiosErr: AxiosError = err as any;
+		return {
+			props: {
+				error: true,
+				errorMessage: axiosErr.message
+			}
+		}
+	}
+
 	return {
 		props: {
 			error: false,
 		}
 	}
+}
+
+const botLogin = async (context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>) => {
+
 }
 
 const getCredentials = () => {

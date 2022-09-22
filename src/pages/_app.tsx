@@ -63,8 +63,8 @@ const GlobalStyles = () => {
           colorScheme: colorScheme
         },
         'a': {
-          color: 'inherit',
-          textDecoration: 'none'
+          color: colors.primary,
+          textDecoration: 'underline'
         }
       }}
     />
